@@ -31,7 +31,7 @@ class YaUploader:
 if __name__ == '__main__':
     path_to_file = 'test_file.txt'
     filename = 'test_file.txt'
-    token = 'y0_AgAAAAA8PRtoAADLWwAAAADPja5bo8aaVWNQRzCYrQmqr5_Fy7-9dow'
+    token = ' '
     up = YaUploader(token)
     result = up.upload(path_to_file, filename)
     print(result)
