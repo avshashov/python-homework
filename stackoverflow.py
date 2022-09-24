@@ -9,7 +9,7 @@ def all_questions(days_ago=2):
     url = 'https://api.stackexchange.com/2.3/questions'
 
     params = {
-        'pagesize': 50, 'fromdate': fromdate, 'todate': todate,
+        'pagesize': 100, 'fromdate': fromdate, 'todate': todate,
         'order': 'desc', 'sort': 'creation',
         'tagged': 'python', 'site': 'stackoverflow'
     }
