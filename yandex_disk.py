@@ -9,12 +9,6 @@ class YaUploader:
         return {"content-type": "application/json",
                 "Authorization": f'OAuth {self.token}'}
 
-    # def get_files_list(self):
-    #     files_url = 'https://cloud-api.yandex.net/v1/disk/resources/files'
-    #     headers = self.get_headers()
-    #     response = requests.get(url=files_url, headers=headers)
-    #     return response.json()
-
     def _get_upload_link(self, disk_space_path):
         upload_url = 'https://cloud-api.yandex.net/v1/disk/resources/upload'
         headers = self.get_headers()
