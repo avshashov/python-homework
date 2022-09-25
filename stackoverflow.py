@@ -8,18 +8,32 @@ def all_questions(days_ago=2):
 
     url = 'https://api.stackexchange.com/2.3/questions'
 
-    params = {
-        'pagesize': 100, 'fromdate': fromdate, 'todate': todate,
-        'order': 'desc', 'sort': 'creation',
-        'tagged': 'python', 'site': 'stackoverflow'
-    }
-    responce = requests.get(url=url, params=params)
-    stack_dict = responce.json()
-    for key, value in stack_dict.items():
-        if key == 'items':
-            for n, question in enumerate(value, 1):
-                dt = (datetime.fromtimestamp(question['creation_date']))
-                print(f'{n}. Question: {question["title"]} \nCreation date: {dt}\n')
+    page_number, question_number = 1, 1
+    while True:
+        params = {
+            'page': page_number, 'pagesize': 100, 'fromdate': fromdate,
+            'todate': todate,
+            'order': 'desc', 'sort': 'creation',
+            'tagged': 'python', 'site': 'stackoverflow'
+        }
+
+        response = requests.get(url=url, params=params)
+
+        if response.status_code >= 400:
+            print(f'Error: {response.status_code}')
+            break
+
+        questions = response.json()
+        for key, value in questions.items():
+            if key == 'items':
+                for n, question in enumerate(value, question_number):
+                    dt = (datetime.fromtimestamp(question['creation_date']))
+                    if dt >= (datetime.fromtimestamp(fromdate)):
+                        print(f'{n}. Question: {question["title"]} \nCreation date: {dt}\n')
+                        question_number += 1
+                    else:
+                        return None
+        page_number += 1
 
 
 all_questions()
