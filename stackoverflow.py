@@ -1,4 +1,5 @@
 import requests
+import time
 from datetime import datetime, timedelta
 
 
@@ -23,16 +24,18 @@ def all_questions(days_ago=2):
             print(f'Error: {response.status_code}')
             break
 
+        time.sleep(2)
         questions = response.json()
+
         for key, value in questions.items():
             if key == 'items':
-                for n, question in enumerate(value, question_number):
-                    dt = (datetime.fromtimestamp(question['creation_date']))
-                    if dt >= (datetime.fromtimestamp(fromdate)):
+                if len(value) > 0:
+                    for n, question in enumerate(value, question_number):
+                        dt = (datetime.fromtimestamp(question['creation_date']))
                         print(f'{n}. Question: {question["title"]} \nCreation date: {dt}\n')
                         question_number += 1
-                    else:
-                        return None
+                else:
+                    return None
         page_number += 1
 
 
